@@ -27,7 +27,6 @@
 		}
 		
 		protected function connect(){
-			include_once 'db.php';
 			$this->dbc=connectToDb($rem, $schemaREM);
 		}	
 		protected function disconnect(){
