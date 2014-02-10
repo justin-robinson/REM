@@ -25,7 +25,7 @@
 		}
 		
 		protected function connect(){
-			if($this->isConnected())
+			if($this->dbc!=NULL)
 				$this->dbc->ping();
 			else{
 				include_once 'db.php';
@@ -33,8 +33,9 @@
 			}
 		}	
 		protected function disconnect(){
-			if($this->isConnected()){
+			if($this->dbc!=NULL){
 				$this->dbc->close();
+				$this->dbc==NULL;
 			}
 		}
 		protected function isConnected(){
