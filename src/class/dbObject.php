@@ -25,25 +25,11 @@
 		}
 		
 		protected function connect(){
-			if($this->dbc!=NULL)
-				$this->dbc->ping();
-			else{
-				include_once 'db.php';
-				$this->dbc=connectToDb($rem, $schemaREM);
-			}
+			include_once 'db.php';
+			$this->dbc=connectToDb($rem, $schemaREM);
 		}	
 		protected function disconnect(){
-			if($this->dbc!=NULL){
-				$this->dbc->close();
-				$this->dbc==NULL;
-			}
-		}
-		protected function isConnected(){
-			$out=False;
-			if(get_class($this->dbc) == 'mysqli' && $this->dbc->thread_id != NULL){
-				$out=True;
-			}
-			return $out;
+			$this->dbc->close();
 		}
 		protected function execute($q){
 			return $this->dbc->query($q);
