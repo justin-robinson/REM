@@ -27,7 +27,7 @@
 		}
 		
 		protected function connect(){
-			$this->dbc=connectToDb($rem, $schemaREM);
+			$this->dbc=connectToDb(5, 'rem');
 		}	
 		protected function disconnect(){
 			$this->dbc->close();
