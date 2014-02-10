@@ -1,7 +1,6 @@
 <?php
+	include 'db.php';
 	
-	$rem=5;
-	$schemaREM='rem';
 	class dbObject{
 		protected $id;
 		protected $created_on;
