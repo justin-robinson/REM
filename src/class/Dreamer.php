@@ -28,7 +28,7 @@
 		}
 		function getDreams(){
 			$this->connect();
-			$query = "SELECT * FROM `dreams` WHERE dreamer_id={$this->id}";
+			$query = "SELECT * FROM `dreams` WHERE dreamer_id={$this->id} ORDER BY `created_on` DESC LIMIT 0,30";
 			$result=$this->execute($query);
 			$this->disconnect();
 
