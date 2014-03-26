@@ -16,15 +16,17 @@
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-collapse-1">
 			<ul class="nav navbar-nav">
+			<?php if(dreamer_logged_in()) : ?>
 				<li 
 				<?php if ($page_name=="showDreams.php")
 					echo "class=\"active\""?>
 				><a href="showDreams.php">Dreams</a></li>
+			<?php endif; ?>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<?php if(dreamer_logged_in()) : ?>
 				<li><a href="#"><?php print(unserialize($_SESSION['dreamer'])->getName()); ?></a></li>
-				<li><a id="logout" href=#"><span class="glyphicon glyphicon-log-out"></span></a></li>
+				<li><a id="logout" href="#"><span class="glyphicon glyphicon-log-out"></span></a></li>
 				<?php else : ?>
 				<li><a href="login.php">Login</a></li>
 				<?php endif; ?>

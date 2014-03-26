@@ -1,21 +1,8 @@
 <?php
-//	include './class/Dream.php';
-/*	include './class/Dreamer.php';
-	
-	$dreamer = new Dreamer();
-	if(session_status() != 2)
-		session_start();
-
-	$_SESSION['dreamer']=$dreamer;*/
-//	print($dreamer->getName());
-//	$dream = new Dream();
 	include_once 'Session.php';
 	require_login();
+	include_once 'head.php';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<?php include_once'head.php'; ?>
 </head>
 <body>
 	<?php include './navbar.php'; ?>

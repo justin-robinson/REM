@@ -1,5 +1,5 @@
 <?php
-	include 'db.php';
+	include './lib/db.php';
 	
 	class dbObject{
 		protected $id;
@@ -27,7 +27,7 @@
 		}
 		
 		protected function connect(){
-			$this->dbc=connectToDb(5, 'rem');
+			$this->dbc=connectToDb();
 		}	
 		protected function disconnect(){
 			$this->dbc->close();
@@ -36,7 +36,6 @@
 			return $this->dbc->query($q);
 		}
 		protected function E($plaintext){
-			include_once 'db.php';
 			return encrypt($plaintext, getREMKey());
 		}
 	}

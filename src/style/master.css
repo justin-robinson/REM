@@ -2,6 +2,7 @@ html,body{
 	background: #333;
 	font-family: Helvetica;
 	height: 100%;
+	color: #eee;
 }
 textarea.form-control {
 	width:100%;
@@ -32,6 +33,15 @@ textarea.form-control {
 	text-align: center;
 }
 
-.form-control[readonly]{
+.form-control[readonly], .form-control[readonly="readonly"]{
 	cursor: default;
+}
+
+.editing{
+	height: 300px;
+}
+
+table {
+	color: #111;
+	font-size: 16px;
 }

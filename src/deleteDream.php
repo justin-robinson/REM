@@ -1,11 +1,13 @@
 <?php
-	include './class/Dreamer.php';
-	if(session_status() != 2)
-		session_start();
-
-	if (isset($_POST['id']) && isset($_SESSION['dreamer']))
-		if( unserialize($_SESSION['dreamer'])->deleteDream($_POST['id']))
-			echo "Deleted";
-	else
-		echo 'error';
+	include_once 'Session.php';
+	if(!dreamer_logged_in())
+		echo "-1";
+	else{
+		include './class/Dreamer.php';
+	
+		if (isset($_POST['id']) && get_dreamer()->deleteDream($_POST['id']))
+				echo "Deleted";
+		else
+			echo 'error';
+	}
 ?>

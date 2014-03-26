@@ -10,7 +10,7 @@
 		}
 		public function loadByID( $id ){
 			$this->connect();
-			$query = "SELECT * FROM `dreams` WHERE id={$id}";
+			$query = "SELECT * FROM `dreams` WHERE id={$id};";
 			$result=$this->execute($query);
 			if($result->num_rows == 1){
 				$dream=$result->fetch_assoc();
@@ -26,11 +26,9 @@
 		}
 
 		public function loadByMagic(){
-			if(session_status() != 2)
-				session_start();
-			if(isset($_SESSION['dreamer']))
-				$this->dreamer_id=unserialize($_SESSION['dreamer'])->getID();
-
+			require_once 'Session.php';
+			
+			$this->dreamer_id=get_dreamer()->getID();
 			if(isset($_POST['story']))
 				$this->story=$_POST['story'];
 		}
@@ -40,37 +38,38 @@
 		function setStory($s){
 			$this->story=$s;
 		}
+		function getStory(){
+			return $this->story;
+		}
 		function save(){
+			$this->connect();
+			$story = $this->dbc->real_escape_string($this->story);
+			$message = "Dream ";
 			if($this->existsInDb()){
-				$this->connect();
-				$query="UPDATE `dreams` SET  `story` =  '{$this->story}' WHERE  `id` ={$this->id};";
-				if($this->execute($query))
-					echo "Dream updated";
-				$this->disconnect();
+				$query="UPDATE `dreams` SET  `story` =  \"{$story}\" WHERE  `id` ={$this->id};";
+				$message .= "updated";
 			} else{
 				if (isset($this->story) && isset($this->dreamer_id)){
-					$this->connect();
-					$query = "INSERT INTO `dreams` (dreamer_id, story) VALUES ({$this->dreamer_id}, \"{$this->story}\")";
-					if($this->execute($query))
-						echo "Dream saved";
-					$this->disconnect();
+					$query = "INSERT INTO `dreams` (dreamer_id, story) VALUES ({$this->dreamer_id}, \"{$story}\");";
+					$message .= "saved";
 				} else{
 					trigger_error("dreamer_id or story not set", E_USER_ERROR);
 				}
 			}
+			if($this->execute($query))
+				echo $message;
+			$this->disconnect();
 
 		}
-		function existsInDb(){
+		private function existsInDb(){
 			$out=False;
 			if(isset($this->id)){
-				$this->connect();
-				$query="SELECT COUNT(*) FROM `dreams` where id={$this->id}";
+				$query="SELECT COUNT(*) FROM `dreams` where id={$this->id};";
 				$result=$this->execute($query);
 				$row=$result->fetch_array();
 				if($row['COUNT(*)'] == 1)
 					$out=True;
 				$result->free();
-				$this->disconnect();
 			}
 			return $out;
 			
@@ -79,21 +78,22 @@
 			?>
 				<div class="panel panel-info">
 					<div class="panel-heading">
-						<h3 class="panel-title"><?php echo $this->created_on; ?></h3>
-						<button value="<?php echo $key ?>"type="button" class="pull-right btn btn-danger btn-sm" id="delete">
+						<h3 class="panel-title"><?php echo date('M j \'y', strtotime($this->created_on)); ?></h3>
+						<button value="<?php echo $key ?>"type="button" class="pull-right btn btn-danger btn-sm" id="d<?php echo $key?>">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 
 					</div>
-					<div class="panel-body">
-						<textarea class="form-control" readonly><?php echo $this->story; ?></textarea>
+					<div class="panel-body" id="b<?php echo $key?>">
+						<textarea class="form-control" id="s<?php echo $key?>"readonly><?php echo $this->story; ?></textarea>
 					</div>
 				</div>
 			<?php
 		}
 		function del(){
 			$this->connect();
-			$query="DELETE FROM `dreams` WHERE `id`={$this->id}";
+			//$query="DELETE FROM `dreams` WHERE `id`={$this->id}";
+			$query="UPDATE `dreams` SET  `active` =  FALSE WHERE  `id` ={$this->id};";
 			if($this->execute($query)){
 				$out = TRUE;
 			}

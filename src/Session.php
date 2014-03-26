@@ -1,17 +1,25 @@
 <?php
 	if(session_status() !=2)
 		session_start();
+	
+	date_default_timezone_set('UTC');
+	
 
 	function dreamer_logged_in(){
 		$out = FALSE;
-		if(isset($_SESSION['dreamer']))
+		if(isset($_SESSION['dreamer']) && sessionValid())
 			$out = TRUE;
 		return $out;
 	}
 
 	function get_dreamer(){
 		if(dreamer_logged_in())
-			return $_SESSION['dreamer'];
+			return unserialize($_SESSION['dreamer']);
+	}
+	
+	function save_dreamer($dreamer){
+		$_SESSION['dreamer']=serialize($dreamer);
+		$_SESSION['expire_time']=time();
 	}
 
 	function destroy_session(){
@@ -27,16 +35,29 @@
 		}
 		$out="";
 		if($dreamer != NULL){
-			$_SESSION['dreamer']=serialize($dreamer);
+			save_dreamer($dreamer);
 			$out=1;
 		}
-		return $out;	
+		return $out;
 	}
 	function logout(){
 		unset($_SESSION['dreamer']);
 	}
 	function require_login(){
 		if(!dreamer_logged_in())
-			header( 'Location: http://rem.jrobcomputers.com/login.php' );
+			header( 'Location: http://www.jrobcomputers.com/REM/login.php' );
+	}
+	function setExpireTime(){
+		$_SESSION['expire_time']=time();
+	}
+	function sessionValid(){
+		$out=FALSE;
+		$diff = time() - $_SESSION['expire_time'];
+		if ($diff < 86400 ){ //24 hours
+			$out=TRUE;
+			setExpireTime();
+		}
+		
+		return $out;
 	}
 ?>

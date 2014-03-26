@@ -11,6 +11,13 @@ function showFlash(data){
 	var alert = flash[0].firstElementChild;
 	alert.innerHTML=data;
 	flash.fadeIn("fast", function(){
-//		flash.fadeOut(5000);
+		flash.fadeOut(5000);
 	});
+}
+
+function processData(data){
+	if(data == "-1")
+		window.location = "http://www.jrobcomputers.com/REM";
+	else
+		showFlash(data);
 }

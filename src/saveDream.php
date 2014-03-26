@@ -1,14 +1,21 @@
 <?php
-	include_once './class/Dream.php';
-	
-	$dream = new Dream();
-	if(isset($_POST['dream_index'])){
-		include_once 'Session.php';
-		include_once './class/Dreamer.php';
-		$dream=unserialize($_SESSION['dreamer'])->getDream($_POST['dream_index']);
-		//$dream->loadByID($id);
-		$dream->setStory($_POST['story']);
-	}else
-		$dream->loadByMagic();
-	$dream->save();
+	include_once 'Session.php';
+	if(!dreamer_logged_in())
+		echo "-1";
+	else{
+		include_once './class/Dream.php';
+		
+		$dream = new Dream();
+		if(isset($_POST['dream_index'])){
+			include_once './class/Dreamer.php';
+			$n = $_POST['dream_index'];
+			$dreamer=get_dreamer();
+			$dream=$dreamer->getDream($n);
+			$dream->setStory($_POST['story']);
+			$dreamer->setDream($n, $dream);
+			save_dreamer($dreamer);
+		}else
+			$dream->loadByMagic();
+		$dream->save();
+	}
 ?>
