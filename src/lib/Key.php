@@ -2,7 +2,7 @@
 	/*****************
 	 **Key Retrieval**
 	 *****************/
-	 function getREMKey(){
+	 function getKey(){
 		$filename = "/REM/Key";
 		$handle = fopen($filename, "r");
 		$contents = fread($handle, filesize($filename));

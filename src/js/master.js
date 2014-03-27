@@ -6,12 +6,11 @@ $(function() {
 	});
 });
 var flash = $('#flash');
-flash.hide();
 function showFlash(data){
 	var alert = flash[0].firstElementChild;
 	alert.innerHTML=data;
 	flash.fadeIn("fast", function(){
-		flash.fadeOut(5000);
+		//flash.fadeOut(5000);
 	});
 }
 

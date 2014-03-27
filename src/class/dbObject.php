@@ -36,7 +36,7 @@
 			return $this->dbc->query($q);
 		}
 		protected function E($plaintext){
-			return encrypt($plaintext, getREMKey());
+			return encrypt($plaintext);
 		}
 	}
 ?>

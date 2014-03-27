@@ -7,12 +7,14 @@
 		protected $wordCount;
 		protected $keywords;
 		protected $latestID;
+		protected $user_key;
 
 		function __construct($name, $pwd) {
 			$this->connect();
-			$pwd=$this->E($pwd);
-			$name=strtolower($name);
-			$query = "SELECT * FROM `dreamers` WHERE name=\"{$name}\" AND pwd=\"{$pwd}\"";
+			$this->name=strtolower($name);
+			$pwd = md5($pwd.$this->getUserKey());
+			$this->pwd=Encrypt($pwd);
+			$query = "SELECT * FROM `dreamers` WHERE name=\"{$this->name}\" AND pwd=\"{$this->pwd}\"";
 			$result = $this->dbc->query($query);
 			if($result->num_rows == 1){
 				$user=$result->fetch_assoc();
@@ -21,6 +23,7 @@
 				$this->updated_at=$user['updated_at'];
 				$this->name=$user['name'];
 				$this->latestID = 0;
+				$this->user_key = decrypt($user['user_key']);
 				$this->dreams= array();
 			}
 			else
@@ -110,6 +113,21 @@
 				}
 			}
 			return $story;
+		}
+		function getUserKey(){
+			$out = null;
+			if ($this->user_key != null)
+				$out = $this->user_key;
+			else{
+				$query = "SELECT `user_key` FROM `dreamers` WHERE `name`=\"{$this->name}\"";
+				$result = $this->dbc->query($query);
+				if($result->num_rows==1){
+					$user = $result->fetch_array();
+					$out = Decrypt($user[0]);
+				}
+			}
+			
+			return $out;
 		}
 	}
 ?>

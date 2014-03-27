@@ -2,15 +2,13 @@
 	/*****************
 	*****Database*****
 	*****************/
-	include 'crypt.php';
-	include 'Key.php';
+	include 'cryption.php';
 	
 	function connectToDB(){
 		//address, username, password, database name
 		list($name, $pwd) = getDBCredentials($perms);
-		$key=getREMKey();
-		$name=Decrypt($name, $key);
-		$pwd=Decrypt($pwd, $key);
+		$name=Decrypt($name);
+		$pwd=Decrypt($pwd);
 		$dbc = new mysqli('localhost', $name, $pwd, 'rem');
 		if ($dbc->connect_error) {
 			die('Connect Error (' . $dbc->connect_errno . ') '

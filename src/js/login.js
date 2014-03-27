@@ -6,7 +6,7 @@ $(function() {
 			if(data == "1")
 				window.location = "http://www.jrobcomputers.com/REM";
 			else
-				alert(data);
+				processData(data);
 		});
 	});
 });

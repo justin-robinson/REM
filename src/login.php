@@ -22,7 +22,8 @@
 			</div>
 		</div>
 	</div>
-
+	
+	<?php include_once 'foot.php'; ?>
 	<script type="text/javascript" charset="utf-8" src="./js/login.js"></script>
 </body>
 </html>
