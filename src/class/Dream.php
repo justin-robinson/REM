@@ -10,8 +10,8 @@
 		}
 		public function loadByID( $id ){
 			$this->connect();
-			$query = "SELECT * FROM `dreams` WHERE id={$id};";
-			$result=$this->execute($query);
+			$sql = "SELECT * FROM `dreams` WHERE id={$id};";
+			$result=$this->execute($sql);
 			if($result->num_rows == 1){
 				$dream=$result->fetch_assoc();
 				$this->id=$dream['id'];
@@ -26,7 +26,7 @@
 		}
 
 		public function loadByMagic(){
-			require_once 'Session.php';
+			@require_once '/var/www/REM/src/lib/Session.php';
 			
 			$this->dreamer_id=get_dreamer()->getID();
 			if(isset($_POST['story']))
@@ -46,17 +46,17 @@
 			$story = $this->dbc->real_escape_string($this->story);
 			$message = "Dream ";
 			if($this->existsInDb()){
-				$query="UPDATE `dreams` SET  `story` =  \"{$story}\" WHERE  `id` ={$this->id};";
+				$sql="UPDATE `dreams` SET  `story` =  \"{$story}\" WHERE  `id` ={$this->id};";
 				$message .= "updated";
 			} else{
 				if (isset($this->story) && isset($this->dreamer_id)){
-					$query = "INSERT INTO `dreams` (dreamer_id, story) VALUES ({$this->dreamer_id}, \"{$story}\");";
+					$sql = "INSERT INTO `dreams` (dreamer_id, story) VALUES ({$this->dreamer_id}, \"{$story}\");";
 					$message .= "saved";
 				} else{
 					trigger_error("dreamer_id or story not set", E_USER_ERROR);
 				}
 			}
-			if($this->execute($query))
+			if($this->execute($sql))
 				echo $message;
 			$this->disconnect();
 
@@ -64,8 +64,8 @@
 		private function existsInDb(){
 			$out=False;
 			if(isset($this->id)){
-				$query="SELECT COUNT(*) FROM `dreams` where id={$this->id};";
-				$result=$this->execute($query);
+				$sql="SELECT COUNT(*) FROM `dreams` where id={$this->id};";
+				$result=$this->execute($sql);
 				$row=$result->fetch_array();
 				if($row['COUNT(*)'] == 1)
 					$out=True;
@@ -92,9 +92,9 @@
 		}
 		function del(){
 			$this->connect();
-			//$query="DELETE FROM `dreams` WHERE `id`={$this->id}";
-			$query="UPDATE `dreams` SET  `active` =  FALSE WHERE  `id` ={$this->id};";
-			if($this->execute($query)){
+			//$sql="DELETE FROM `dreams` WHERE `id`={$this->id}";
+			$sql="UPDATE `dreams` SET  `active` =  FALSE WHERE  `id` ={$this->id};";
+			if($this->execute($sql)){
 				$out = TRUE;
 			}
 			$this->disconnect();

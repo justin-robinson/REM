@@ -1,10 +1,10 @@
 <?php
-	include_once 'Session.php';
-	include_once './head.php';
+	include_once '/var/www/REM/src/lib/Session.php';
+	include_once 'head.php';
 ?>
 </head>
 <body>
-	<?php include './navbar.php'; ?>
+	<?php include 'navbar.php'; ?>
 	<div class="container fill">
 		<div class="form-horizontal">
 			<div class="form-group">
@@ -21,6 +21,7 @@
 				</div>
 			</div>
 		</div>
+		<a href="./register.php">Need to register?<a>
 	</div>
 	
 	<?php include_once 'foot.php'; ?>

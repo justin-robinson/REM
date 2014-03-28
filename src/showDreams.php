@@ -1,14 +1,14 @@
 <?php
-	include './class/Dream.php';
-	include_once 'Session.php';
+	include '/var/www/REM/src/class/Dream.php';
+	include_once '/var/www/REM/src/lib/Session.php';
 	require_login();
-	include_once './head.php';
+	include_once 'head.php';
 	$dreamer=unserialize($_SESSION['dreamer']);
 	$dreamer->getDreams();
 ?>
 </head>
 <body>
-	<?php include './navbar.php'; ?>
+	<?php include 'navbar.php'; ?>
 
 	<div class="container">
 		<div class="col-md-2">

@@ -2,10 +2,13 @@ $(function() {
 	$(".btn-danger").click(function(){
 		var button = this;
 		var id = button.value;
-		$.post('./deleteDream.php', {id: id}, function(data){
+		$.post('./post/deleteDream.php', {id: id}, function(data){
 			if(data == "Deleted"){
 				var parent=$(button)[0].parentNode.parentNode;
 				var temp=$(parent).slideUp();
+			}
+			else{
+				processData(data);
 			}
 		});
 	});
@@ -38,7 +41,7 @@ function updateDream(id) {
 	textarea.readOnly = true;
 	activeStoryID = null;
 	if (textarea.value != dbStoryContent){
-		$.post('./saveDream.php', {story: textarea.value, dream_index: id}, function(data){
+		$.post('./post/saveDream.php', {story: textarea.value, dream_index: id}, function(data){
 			processData(data);
 		});
 	}

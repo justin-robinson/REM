@@ -1,7 +1,7 @@
 <?php
 	$page_name= basename($_SERVER['PHP_SELF']);
-	include_once './class/Dreamer.php';
-	include_once 'Session.php';
+	include_once '/var/www/REM/src/class/Dreamer.php';
+	include_once '/var/www/REM/src/lib/Session.php';
 ?>
 <nav class="navbar navbar-inverse" role="navigation">
 	<div class="container-fluid">

@@ -9,36 +9,56 @@
 		protected $latestID;
 		protected $user_key;
 
-		function __construct($name, $pwd) {
+		function loadByCredentials($name, $pwd) {
 			$this->connect();
-			$this->name=strtolower($name);
+			$this->name=Encrypt(strtolower($name));
 			$pwd = md5($pwd.$this->getUserKey());
 			$this->pwd=Encrypt($pwd);
-			$query = "SELECT * FROM `dreamers` WHERE name=\"{$this->name}\" AND pwd=\"{$this->pwd}\"";
-			$result = $this->dbc->query($query);
+			$sql = "SELECT * FROM `dreamers` WHERE name=\"{$this->name}\" AND pwd=\"{$this->pwd}\"";
+			$result = $this->dbc->query($sql);
 			if($result->num_rows == 1){
 				$user=$result->fetch_assoc();
 				$this->id=$user['id'];
 				$this->created_on=$user['created_on'];
 				$this->updated_at=$user['updated_at'];
-				$this->name=$user['name'];
+				$this->name=$name;
 				$this->latestID = 0;
-				$this->user_key = decrypt($user['user_key']);
+				$this->user_key = Decrypt($user['user_key']);
 				$this->dreams= array();
 			}
 			else
 				throw new Exception('Login failed');
 			$result->free();
 			$this->disconnect();
-		}		
+		}
+
+		function createNew($name, $pwd){
+			$this->connect();
+			$result;
+			$this->name = Encrypt(strtolower($name));
+			$sql = "SELECT `name` from `dreamers` WHERE name=\"{$this->name}\"";
+			if($this->dbc->query($sql)->num_rows == 0){
+				include_once '/var/www/REM/src/lib/keyGen.php';
+				$this->user_key = uniqueKey();
+				$this->pwd = Encrypt(md5($pwd.$this->user_key));
+				$this->user_key = Encrypt($this->user_key);
+				$sql = "INSERT INTO `dreamers` (`name`, `pwd`, `user_key`)
+					VALUES ('{$this->name}', '{$this->pwd}', '{$this->user_key}')";
+				$result=$this->dbc->query($sql);
+			}else
+				echo 'Name taken';
+				//throw new Exception('Name taken');
+			$this->disconnect();
+			return $result;
+		}
 
 		function getName(){
 			return ucfirst($this->name);
 		}
 		function getDreams(){
 			$this->connect();
-			$query = "SELECT * FROM `dreams` WHERE `dreamer_id`={$this->id} AND `active` = TRUE AND `id`>{$this->latestID} ORDER BY `created_on` LIMIT 0,30";
-			$result=$this->execute($query);
+			$sql = "SELECT * FROM `dreams` WHERE `dreamer_id`={$this->id} AND `active` = TRUE AND `id`>{$this->latestID} ORDER BY `created_on` LIMIT 0,30";
+			$result=$this->execute($sql);
 			$this->disconnect();
 
 			//parse sql result into array of dreams
@@ -65,7 +85,7 @@
 			return $this->keywords;
 		}
 		function deleteDream($n){
-			require_once 'Session.php';
+			require_once '/var/www/REM/src/lib/Session.php';
 			$out=$this->dreams[$n]->del();
 			if($out){
 				unset($this->dreams[$n]);
@@ -119,8 +139,8 @@
 			if ($this->user_key != null)
 				$out = $this->user_key;
 			else{
-				$query = "SELECT `user_key` FROM `dreamers` WHERE `name`=\"{$this->name}\"";
-				$result = $this->dbc->query($query);
+				$sql = "SELECT `user_key` FROM `dreamers` WHERE `name`=\"{$this->name}\"";
+				$result = $this->dbc->query($sql);
 				if($result->num_rows==1){
 					$user = $result->fetch_array();
 					$out = Decrypt($user[0]);
