@@ -122,14 +122,33 @@
 		}
 
 		function filter($story){
-			$filter = array("a","about","all","am","an","and","as","at","back","been","but","don't","down","face","for","go","had","have","he","her","him","his","i","in","into","is","it","know","me","more","my","not","now","of","on","one","our","out","seemed","she","side","so","stuff","tell","that","the","there","this","to","top","us","was","we","were","what","where","with","work");
-			$story = preg_replace("/[!,?.)(]+|('s)/", "", $story);		//remove special characters
-			$story = preg_replace("/[\s]+/", " ", $story);			//replace multispaces with single
+			$filter = array(
+				"a","about","all","am","an","and","as","at",
+				"back","be","been","but",
+				"doing","don't","down",
+				"face","for","from",
+				"go","got",
+				"had","have","he","her","him","his","home","house",
+				"i","i'm","in","into","is","it",
+				"just",
+				"know",
+				"like",
+				"me","more","my",
+				"not","now",
+				"of","on","one","our","out",
+				"right","room",
+				"seemed","she","side","so","stuff",
+				"tell","that","the","there","this","to","top",
+				"up","us",
+				"was","we","were","what","where","while","with","work"
+			);
+			$story = preg_replace("/[!,?.)(]+|('s)/", "", $story);			//remove special characters
+			$story = preg_replace("/[\s]+/", " ", $story);					//replace multispaces with single
 			$story = preg_split("/\s/", $story, -1, PREG_SPLIT_NO_EMPTY);	//make array of words
-			foreach ($story as $key=>$word){				//filter out non key-words
+			foreach ($story as $key=>$word){								//filter out non key-words
 				$word = strtolower($word);
 				if(($k = array_search($word, $filter)) !== false){
-					unset($story[$key]);	
+					unset($story[$key]);
 				}
 			}
 			return $story;

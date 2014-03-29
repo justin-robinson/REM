@@ -21,7 +21,16 @@
 				</div>
 			</div>
 		</div>
-		<a href="./register.php">Need to register?<a>
+		<a href="./register.php">Need to register?</a>
+
+		<div class="jumbotron">
+			<h1>Welcome to REM</h1>
+			<ul>
+				<li><h3>Make an account</h3></li>
+				<li><h3>Record your dreams</h3></li>
+				<li><h3>Look at patterns</h3></li>
+			</ul>
+		</div>
 	</div>
 	
 	<?php include_once 'foot.php'; ?>
