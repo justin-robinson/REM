@@ -12,7 +12,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="http://rem.jrobcomputers.com">REM</a>
+			<a href="http://rem.jrobcomputers.com"><img src="https://s910eq.by3302.livefilestore.com/y2pBz_sF0A07HzyzQCYRapn6gayukjgRP1V1r5X0jjo8KONh_oXa_DR4lVLM1AKxC_RJ9nWdtLqDOf-ioePEnAjDMSujiUfvtcB9CSViuqalo4/rem-logo-small.png?psid=1"></a>
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-collapse-1">
 			<ul class="nav navbar-nav">
