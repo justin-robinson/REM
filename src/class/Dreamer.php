@@ -127,7 +127,7 @@
 				"back","be","been","but",
 				"doing","don't","down",
 				"face","for","from",
-				"go","got",
+				"get","go","got",
 				"had","have","he","her","him","his","home","house",
 				"i","i'm","in","into","is","it",
 				"just",
