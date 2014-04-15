@@ -100,14 +100,7 @@
 		}
 		function parseKeywords(){
 			$this->wordCount = array();
-/*			asort($filter);
-			foreach ($filter as $f){
-				echo "\"".$f."\", ";
-			}*/
 			foreach ($this->dreams as $dream){
-				//$story = strtolower($dream->getStory());
-				//$story = str_replace($filter, " ", $story);
-				//$story = explode(" ", $story);
 				$story = $this->filter($dream->getStory());
 				foreach ( $story as $word ){
 					if ( $this->wordCount[$word] == null )
@@ -118,7 +111,7 @@
 
 			}
 			arsort($this->wordCount);
-			$this->keywords = array_slice($this->wordCount, 0, 10);
+			$this->keywords = array_slice($this->wordCount, 0, 10, true);
 		}
 
 		function filter($story){
@@ -142,10 +135,10 @@
 				"up","us",
 				"was","we","were","what","where","while","with","work"
 			);
-			$story = preg_replace("/[!,?.)(]+|('s)/", "", $story);			//remove special characters
-			$story = preg_replace("/[\s]+/", " ", $story);					//replace multispaces with single
+			$story = preg_replace("/[!,?.)(]+|('s)/", "", $story);		//remove special characters
+			$story = preg_replace("/[\s]+/", " ", $story);			//replace multispaces with single
 			$story = preg_split("/\s/", $story, -1, PREG_SPLIT_NO_EMPTY);	//make array of words
-			foreach ($story as $key=>$word){								//filter out non key-words
+			foreach ($story as $key=>$word){				//filter out non key-words
 				$word = strtolower($word);
 				if(($k = array_search($word, $filter)) !== false){
 					unset($story[$key]);
