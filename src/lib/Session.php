@@ -27,7 +27,8 @@
 	}
 
 	function login($name, $pwd){
-		@include_once '/var/www/REM/src/class/Dreamer.php';
+        include_once '../config.php';
+		@include_once ROOT.'class/Dreamer.php';
 		try{
 			$dreamer = new Dreamer();
 			$dreamer->loadByCredentials($name, $pwd);

@@ -1,6 +1,7 @@
 <?php
-	include '/var/www/REM/src/class/Dream.php';
-	include_once '/var/www/REM/src/lib/Session.php';
+    include_once 'config.php';
+	include ROOT.'class/Dream.php';
+	include_once ROOT.'lib/Session.php';
 	require_login();
 	include_once 'head.php';
 	$dreamer=unserialize($_SESSION['dreamer']);

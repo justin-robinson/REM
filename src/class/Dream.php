@@ -26,7 +26,7 @@
 		}
 
 		public function loadByMagic(){
-			@require_once '/var/www/REM/src/lib/Session.php';
+			@require_once ROOT.'lib/Session.php';
 			
 			$this->dreamer_id=get_dreamer()->getID();
 			if(isset($_POST['story']))

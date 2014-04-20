@@ -1,5 +1,6 @@
 <?php
-	include_once '/var/www/REM/src/lib/Session.php';
+    include_once 'config.php';
+	include_once ROOT.'lib/Session.php';
 	include_once 'head.php';
 	$field_groups = array(
 		array(

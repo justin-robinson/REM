@@ -1,5 +1,6 @@
 <?php
-	@include '/var/www/REM/src/lib/db.php';
+    include_once 'config.php';
+	@include ROOT.'lib/db.php';
 	
 	class dbObject{
 		protected $id;

@@ -1,6 +1,7 @@
 <?php
+    include_once '../config.php';
 	if(isset($_POST['name']) && isset($_POST['pwd'])){
-		include_once '/var/www/REM/src/class/Dreamer.php';
+		include_once ROOT.'class/Dreamer.php';
 		$user = new Dreamer();
 		$result=$user->createNew($_POST['name'], $_POST['pwd']);
 		/*try{

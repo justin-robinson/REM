@@ -1,7 +1,8 @@
 <?php
-	include_once '/var/www/REM/src/lib/Session.php';
+	include_once 'config.php';
+	include_once ROOT.'lib/Session.php';
 	require_login();
-	include_once 'head.php';
+	include_once ROOT.'head.php';
 ?>
 </head>
 <body>
