@@ -47,7 +47,7 @@
 	}
 	function require_login(){
 		if(!dreamer_logged_in())
-			header( 'Location: http://www.jrobcomputers.com/REM/login.php' );
+			header( 'Location: /REM/login.php' );
 	}
 	function setExpireTime(){
 		$_SESSION['expire_time']=time();

@@ -19,7 +19,7 @@
 	
 	function getDBCredentials(){
 		$filename = "/REM/db";
-		$handle = fopen($filename, "r") or die('Error opening file!');
+		$handle = fopen($filename, "r") or die("Error opening {$filename}");
 		$credentials=fscanf($handle, "%s\t%s\n");
 		fclose($handle);
 		return $credentials;
