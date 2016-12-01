@@ -3,4 +3,4 @@ vendor
 node_modules
 bower_components
 composer.lock
-#src/css/*
+src/css/*
