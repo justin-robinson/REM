@@ -1,6 +1,6 @@
 <?php
-    include_once '../config.php';
-	@include ROOT.'lib/db.php';
+    include_once ROOT . '/config.php';
+	@include_once ROOT.'lib/db.php';
 	
 	class dbObject{
 		protected $id;

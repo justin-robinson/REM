@@ -6,7 +6,7 @@
 	
 	function connectToDB(){
 		//address, username, password, database name
-		list($name, $pwd) = getDBCredentials($perms);
+		list($name, $pwd) = getDBCredentials();
 		$name=Decrypt($name);
 		$pwd=Decrypt($pwd);
 		$dbc = new mysqli('localhost', $name, $pwd, 'rem');

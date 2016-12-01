@@ -47,7 +47,7 @@
 	}
 	function require_login(){
 		if(!dreamer_logged_in())
-			header( 'Location: /REM/login.php' );
+			header( 'Location: /login.php' );
 	}
 	function setExpireTime(){
 		$_SESSION['expire_time']=time();

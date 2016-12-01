@@ -2,7 +2,7 @@ var pwd_regex = /(?=^.{8,}$)(?=.*\d.*\d)(?=.*[a-zA-Z].*[a-zA-Z])(?=.*[!@#$%^;*()
 $(function() {
 	$("#logout").click(function(){
 		$.post('./post/destroySession.php', function(data){
-			window.location = "http://rem.jrobcomputers.com";
+			window.location = "/";
 		});
 	});
 });
@@ -16,7 +16,7 @@ function showFlash(data){
 }
 function processData(data){
 	if(data == "-1")
-		window.location = "http://www.jrobcomputers.com/REM";
+		window.location = "/";
 	else
 		showFlash(data);
 }

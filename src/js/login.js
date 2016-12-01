@@ -4,7 +4,7 @@ $(function() {
 		var pwd = $("#input_pwd")[0].value.trim();
 		$.post('./post/createSession.php', {name: name, pwd: pwd}, function(data){
 			if(data == "1")
-				window.location = "http://www.jrobcomputers.com/REM";
+				window.location = "/";
 			else
 				processData(data);
 		});

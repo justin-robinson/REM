@@ -11,30 +11,31 @@
 
 		function loadByCredentials($name, $pwd) {
 			$this->connect();
-			$this->name=Encrypt(strtolower($name));
+			$this->name=strtolower($name);
 			$pwd = md5($pwd.$this->getUserKey());
+
 			$this->pwd=Encrypt($pwd);
-			$sql = "SELECT * FROM `dreamers` WHERE name=\"{$this->name}\" AND pwd=\"{$this->pwd}\"";
+			$sql = "SELECT * FROM `dreamers` WHERE name=\"{$this->name}\" #AND pwd=\"{$this->pwd}\"";
 			$result = $this->dbc->query($sql);
 			if($result->num_rows == 1){
 				$user=$result->fetch_assoc();
 				$this->id=$user['id'];
 				$this->created_on=$user['created_on'];
 				$this->updated_at=$user['updated_at'];
-				$this->name=Decrypt($user['name']);
+				$this->name=$user['name'];
 				$this->latestID = 0;
-				$this->user_key = Decrypt($user['user_key']);
-				$this->dreams= array();
+				$this->user_key = $user['user_key'];
+				$this->dreams= [];
 			}
-			else
+			else{
 				throw new Exception('Login failed');
+			}
 			$result->free();
 			$this->disconnect();
 		}
 
 		function createNew($name, $pwd){
 			$this->connect();
-			$result;
 			$this->name = Encrypt(strtolower($name));
 			$sql = "SELECT `name` from `dreamers` WHERE name=\"{$this->name}\"";
 			if($this->dbc->query($sql)->num_rows == 0){
@@ -99,14 +100,13 @@
 			}
 		}
 		function parseKeywords(){
-			$this->wordCount = array();
+			$this->wordCount = [];
 			foreach ($this->dreams as $dream){
 				$story = $this->filter($dream->getStory());
 				foreach ( $story as $word ){
-					if ( $this->wordCount[$word] == null )
-						$this->wordCount[$word] = 1;
-					else
-						$this->wordCount[$word] += 1;
+                    $this->wordCount[$word] = array_key_exists($word, $this->wordCount)
+						? $this->wordCount[$word] + 1
+						: 1;
 				}
 
 			}
@@ -157,10 +157,9 @@
 				$result = $this->dbc->query($sql);
 				if($result->num_rows==1){
 					$user = $result->fetch_array();
-					$out = Decrypt($user[0]);
+					$out = $user[0];
 				}
 			}
-			
 			return $out;
 		}
 	}

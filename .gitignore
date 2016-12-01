@@ -1,2 +1,5 @@
-src/lib/encrypt_text.php
-src/.sass-cache
+.sass-cache
+vendor
+node_modules
+bower_components
+composer.lock

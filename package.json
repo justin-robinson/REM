@@ -1,0 +1,23 @@
+{
+  "name": "rem",
+  "version": "1.0.0",
+  "description": "",
+  "main": " ",
+  "dependencies": {
+    "bower": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justin-robinson/REM.git"
+  },
+  "author": "justin robinson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justin-robinson/REM/issues"
+  },
+  "homepage": "https://github.com/justin-robinson/REM#readme"
+}

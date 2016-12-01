@@ -1,0 +1,13 @@
+{
+    "name": "justin-robinson/REM",
+    "authors": [
+        {
+            "name": "justin-robinson",
+            "email": "jrob09bhs@gmail.com"
+        }
+    ],
+    "require": {
+        "justin-robinson/scoop": "dev-master",
+        "klein/klein": "^2.1"
+    }
+}
